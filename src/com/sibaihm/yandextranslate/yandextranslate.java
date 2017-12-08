@@ -34,13 +34,13 @@ public class YandexTranslate extends AsyncTask<String, Void, String> {
      *	Your Yandex API Key
      */
 	
-    private final String API_KEY     = "";
+    private final String API_KEY = "";
 	
     /*
      *	Yandex API Service URL
      */
 	
-    private final String YANDEX_URL  = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=";
+    private final String YANDEX_URL = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=";
 
 
     @Override
@@ -124,9 +124,9 @@ public class YandexTranslate extends AsyncTask<String, Void, String> {
 				
                 String resultString = obj.getString("text");
 				
-	    /*
-	     *	Escaping  ,"[]  from the result
-	     */
+	    	/*
+	    	 *	Escaping  ,"[]  from the result
+	     	 */
 				
                 resultString = resultString.replaceAll("[,\"\\[\\]]", "");
 				
