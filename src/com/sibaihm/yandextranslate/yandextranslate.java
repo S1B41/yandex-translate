@@ -30,13 +30,13 @@ import java.nio.charset.Charset;
 
 public class YandexTranslate extends AsyncTask<String, Void, String> {
 
-	/*
+    /*
      *	Your Yandex API Key
      */
 	
     private final String API_KEY     = "";
 	
-	/*
+    /*
      *	Yandex API Service URL
      */
 	
@@ -66,22 +66,22 @@ public class YandexTranslate extends AsyncTask<String, Void, String> {
 		
         try {
 			
-			/*
+	    /*
              *	Encoding the word in UTF-8
-			 *	Use it if you get encoding problems
+	     *	Use it if you get encoding problems
              */
 			
-			wordToTranslate = URLEncoder.encode(wordToTranslate, "UTF-8");
+	    wordToTranslate = URLEncoder.encode(wordToTranslate, "UTF-8");
 			
-			/*
-			 *	Creating the URL object with the url value
-			 */
+	    /*
+	     *	Creating the URL object with the url value
+	     */
 
             URL url = new URL(YANDEX_URL + API_KEY + "&text=" + textToTranslate + "&lang=" + SOURCE_LANGUAGE + "-" + TARGET_LANGUAGE);
 
-			/*
-			 *	Creating Http Connection, Input Stream, Buffered Reader and jsonString
-			 */
+	    /*
+	     *	Creating Http Connection, Input Stream, Buffered Reader and jsonString
+	     */
 			
             HttpURLConnection connection    = (HttpURLConnection) url.openConnection();
 			
@@ -91,9 +91,9 @@ public class YandexTranslate extends AsyncTask<String, Void, String> {
 			
             String jsonString;
 
-			/*
-			 *	Creating string builder and inserting retrieved JSON result into it
-			 */
+	    /*
+	     *	Creating string builder and inserting retrieved JSON result into it
+	     */
 			
             StringBuilder stringBuilder = new StringBuilder();
 			
@@ -103,9 +103,9 @@ public class YandexTranslate extends AsyncTask<String, Void, String> {
 				
             }
 
-			/*
-			 *	Closing and disconnecting
-			 */
+	    /*
+	     *	Closing and disconnecting
+	     */
 			
             bufferedReader.close();
 			
@@ -124,9 +124,9 @@ public class YandexTranslate extends AsyncTask<String, Void, String> {
 				
                 String resultString = obj.getString("text");
 				
-				/*
-			 	 *	Escaping  ,"[]  from the result
-			 	 */
+	    /*
+	     *	Escaping  ,"[]  from the result
+	     */
 				
                 resultString = resultString.replaceAll("[,\"\\[\\]]", "");
 				
