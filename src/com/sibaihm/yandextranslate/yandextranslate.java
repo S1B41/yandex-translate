@@ -1,19 +1,4 @@
 
-/*
- *
- *
- *	Created by Sibai H. Mousa 2017
- *	Version 1.0
- *
- *
- *	Licensed under the GNU General Public License v3.0
- *	You can obtain a copy of the license under:
- *	https://www.gnu.org/licenses/gpl-3.0.en.html
- *
- *
- */
-
-
 package com.sibaihm.yandextranslate;
 
 import android.os.AsyncTask;
@@ -27,17 +12,16 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
-
 public class YandexTranslate extends AsyncTask<String, Void, String> {
 
     /*
-     *	Your Yandex API Key
+     * Your Yandex API Key
      */
 	
     private final String API_KEY = "";
 	
     /*
-     *	Yandex API Service URL
+     * Yandex API Service URL
      */
 	
     private final String YANDEX_URL = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=";
@@ -47,19 +31,19 @@ public class YandexTranslate extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params){
 
         /*
-    	 * 	The text which will be translated
+    	 * The text which will be translated
     	 */
 
         final String textToTranslate = params[0];
         
         /*
-         *	The source language to be translated from
+         * The source language to be translated from
          */
         
         final String SOURCE_LANGUAGE = params[1];
         
         /*
-         *	The wished language to be translated to
+         * The wished language to be translated to
          */
         
         final String TARGET_LANGUAGE = params[2];
@@ -67,32 +51,32 @@ public class YandexTranslate extends AsyncTask<String, Void, String> {
         try {
 			
 	    /*
-             *	Encoding the word in UTF-8
-	     *	Use it if you get encoding problems
+             * Encode the word in UTF-8
+	     * Use it if you get encoding problems
              */
 			
 	    wordToTranslate = URLEncoder.encode(wordToTranslate, "UTF-8");
 			
 	    /*
-	     *	Creating the URL object with the url value
+	     * Create the URL object with the url value
 	     */
 
             URL url = new URL(YANDEX_URL + API_KEY + "&text=" + textToTranslate + "&lang=" + SOURCE_LANGUAGE + "-" + TARGET_LANGUAGE);
 
 	    /*
-	     *	Creating Http Connection, Input Stream, Buffered Reader and jsonString
+	     * Create Http Connection, Input Stream, Buffered Reader and jsonString
 	     */
 			
-            HttpURLConnection connection    = (HttpURLConnection) url.openConnection();
+            HttpURLConnection connection  = (HttpURLConnection) url.openConnection();
 			
-            InputStream inputStream         = connection.getInputStream();
+            InputStream inputStream       = connection.getInputStream();
 			
-            BufferedReader bufferedReader   = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
 			
             String jsonString;
 
 	    /*
-	     *	Creating string builder and inserting retrieved JSON result into it
+	     * Create string builder and insert retrieved JSON result into it
 	     */
 			
             StringBuilder stringBuilder = new StringBuilder();
@@ -100,11 +84,10 @@ public class YandexTranslate extends AsyncTask<String, Void, String> {
             while ((jsonString = bufferedReader.readLine()) != null) {
 				
                 stringBuilder.append(jsonString + "\n");
-				
             }
 
 	    /*
-	     *	Closing and disconnecting
+	     * Close and disconnect
 	     */
 			
             bufferedReader.close();
@@ -114,8 +97,8 @@ public class YandexTranslate extends AsyncTask<String, Void, String> {
             connection.disconnect();
 
             /*
-             * 	Triming the response and removing any special chars from it
-             *	The response has the form of: {"code":200,"lang":"de-ar","text":["blabla"]}
+             * Trim the response and remove any special chars from it
+             * The response has the form of: {"code":200,"lang":"de-ar","text":["blabla"]}
              */
 			
             JSONObject obj = new JSONObject(stringBuilder.toString().trim());
@@ -125,17 +108,16 @@ public class YandexTranslate extends AsyncTask<String, Void, String> {
                 String resultString = obj.getString("text");
 				
 	    	/*
-	    	 *	Escaping  ,"[]  from the result
+	    	 * Escape  ,"[]  from the result
 	     	 */
 				
                 resultString = resultString.replaceAll("[,\"\\[\\]]", "");
 				
-                return resultString;
-				
+                return resultString;	
             }
 
             /*
-             * 	Returning empty string if there is any error (response code is other than 200)
+             * Return empty string if there is any error (response code is other than 200)
              */
 			
             else return "";
@@ -144,10 +126,7 @@ public class YandexTranslate extends AsyncTask<String, Void, String> {
 			
             Log.e("Yandex Response ", e.getMessage());
 			
-            return "";
-			
+            return "";	
         }
-
     }
-
 }
