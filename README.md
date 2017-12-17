@@ -1,4 +1,4 @@
-# YandexTranslate
+# yandex-translate
 
 Translate text in Android using Yandex Translate API
 
